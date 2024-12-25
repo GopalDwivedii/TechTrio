@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Counseling & Recommendation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="test1.css">
+</head>
+<body>
+    <nav>
+    <div>
+        <a href="#">Home</a>
+        <div class="dropdown">
+            <a href="#">Top Colleges</a>
+            <div class="dropdown-content">
+                <a href="#">IIT Bombay</a>
+                <a href="#">IIT Delhi</a>
+                <a href="#">IIT Madras</a>
+                <a href="#">IIT Kanpur</a>
+                <a href="#">IIT Kharagpur</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Popular Domains</a>
+            <div class="dropdown-content">
+                <a href="#">Computer Science & Engineering</a>
+                <a href="#">Electrical Engineering</a>
+                <a href="#">Mechanical Engineering</a>
+                <a href="#">Civil Engineering</a>
+                <a href="#">Aerospace Engineering</a>
+                <a href="#">Chemical Engineering</a>
+                <a href="#">Data Science</a>
+                <a href="#">Artificial Intelligence</a>
+            </div>
+        </div>
+
+        <a href="Table.html">Compare Colleges</a>
+        <a href="#filter-section">Filters</a> 
+    </div>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search for colleges..." id="collegeSearch" onkeypress="searchCollege(event)">
+    </div>
+
+    <div class="nav-buttons">
+        <a class="login" id="loginBtn">Login</a>
+        <a class="signup" id="signupBtn">Sign Up</a>
+    </div>
+</nav>
+
+   
+    <div class="main-section">
+        <div class="slideshow">
+            <!-- Replace these sample URLs with your actual images -->
+            <img src="b.jpg" alt="Campus Image 1">
+            <img src="2.png" alt="Campus Image 2">
+            <img src="3.png" alt="Campus Image 3">
+        </div>
+        <!-- ...existing content... -->
+        <div class="overlay"></div>
+        <h1>Find Your Dream College....</h1>
+    </div>
+
+   
+    <div class="filter-section" id="filter-section"> 
+        <h2>Filter Colleges</h2>
+        <form id="filterForm">
+            <select id="institute">
+                <option value="">Select Institute</option>
+                
+            </select>
+
+            <select id="quota">
+                <option value="">Select Quota</option>
+                <option value="AI">AI</option>      
+            </select>
+
+            <select id="seatType">
+                <option value="">Select Seat Type</option>
+                <option value="OPEN">OPEN</option>
+                <option value="OPEN (PwD)">OPEN (PwD)</option>
+                <option value="OBC-NCL">OBC-NCL</option>
+                <option value="OBC-NCL (PwD)">OBC-NCL (PwD)</option>
+                <option value="SC">SC</option>
+                <option value="SC (PwD)">SC (PwD)</option>
+                <option value="ST">ST</option>
+                <option value="ST (PwD)">ST (PwD)</option>
+                <option value="EWS">EWS</option>
+                <option value="EWS (PwD)">EWS (PwD)</option>
+            </select>
+
+            <select id="gender">
+                <option value="">Select Gender</option>
+                <option value="Gender-Neutral">Gender-Neutral</option>
+                <option value="Female-only (including Supernumerary)">Female-only (including Supernumerary)</option>
+            </select>
+
+            <input type="number" id="rank" placeholder="Enter Your Rank">
+
+            <button type="button" onclick="applyFilters()">Apply Filters</button>
+        </form>
+    </div>
+
+    
+    <div class="results" id="results">
+        <h2>Matching Colleges</h2>
+        <table id="resultsTable">
+            
+        </table>
+    </div>
+
+    
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin">&times;</span>
+            <h2>Login</h2>
+            <input type="text" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="handleLogin()">Login</button>
+        </div>
+    </div>
+
+    
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeSignup">&times;</span>
+            <h2>Sign Up</h2>
+            <input type="text" id="signupName" placeholder="Full Name">
+            <input type="email" id="signupEmail" placeholder="Email">
+            <input type="password" id="signupPassword" placeholder="Password">
+            <button onclick="handleSignup()">Sign Up</button>
+        </div>
+
+    
+    </div>
+    
+
+    <button class="chatbot-toggler">
+        <span class="material-symbols-rounded">Colly</span>
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="chatbot">
+        <header>
+          <h2>Chatbot</h2>
+          <span class="close-btn material-symbols-outlined">close</span>
+        </header>
+        <ul class="chatbox">
+          <li class="chat incoming">
+            <span class="material-symbols-outlined">smart_toy</span>
+            <p>Hi there 👋<br>How can I help you today?</p>
+          </li>
+        </ul>
+        <div class="chat-input">
+          <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+          <span id="send-btn" class="material-symbols-rounded">send</span>
+        </div>
+      </div>
+    <script>
+        let sheetData = [];
+
+        
+        fetch('IIT ROUND 1.xlsx')
+            .then(response => response.arrayBuffer())
+            .then(data => {
+                const workbook = XLSX.read(data, {type: 'array'});
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                sheetData = XLSX.utils.sheet_to_json(sheet);
+                populateInstituteOptions();
+            });
+            fetch('IIT ROUND 2.xlsx')
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    const workbook = XLSX.read(data, {type: 'array'});
+                    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                    sheetData = XLSX.utils.sheet_to_json(sheet);
+                    populateInstituteOptions();
+                    
+    });
+    fetch('IIT ROUND 3.xlsx')
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    const workbook = XLSX.read(data, {type: 'array'});
+                    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                    sheetData = XLSX.utils.sheet_to_json(sheet);
+                    populateInstituteOptions();
+                  });
+
+        
+        function populateInstituteOptions() {
+            const instituteSelect = document.getElementById('institute');
+            const uniqueInstitutes = [...new Set(sheetData.map(row => row['Institute']))];
+
+            uniqueInstitutes.forEach(institute => {
+                const option = document.createElement('option');
+                option.value = institute;
+                option.text = institute;
+                instituteSelect.appendChild(option);
+            });
+        }
+
+        
+        function applyFilters() {
+            const institute = document.getElementById('institute').value;
+            const quota = document.getElementById('quota').value;
+            const seatType = document.getElementById('seatType').value;
+            const gender = document.getElementById('gender').value;
+            const rank = parseInt(document.getElementById('rank').value);
+
+            const filteredData = sheetData.filter(row => {
+                return (!institute || row['Institute'] === institute) &&
+                       (!quota || row['Quota'] === quota) &&
+                       (!seatType || row['Seat Type'] === seatType) &&
+                       (!gender || row['Gender'] === gender) &&
+                       (!isNaN(rank) ? (row['Opening Rank'] <= rank && row['Closing Rank'] >= rank) : true);
+            });
+
+            displayResults(filteredData);
+        }
+
+        
+        function displayResults(data) {
+            const resultsTable = document.getElementById('resultsTable');
+            resultsTable.innerHTML = `
+                <tr>
+                    <th>Institute</th>
+                    <th>Program</th>
+                    <th>Quota</th>
+                    <th>Seat Type</th>
+                    <th>Gender</th>
+                    <th>Opening Rank</th>
+                    <th>Closing Rank</th>
+                </tr>
+            `;
+
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row['Institute']}</td>
+                    <td>${row['Academic Program Name']}</td>
+                    <td>${row['Quota']}</td>
+                    <td>${row['Seat Type']}</td>
+                    <td>${row['Gender']}</td>
+                    <td>${row['Opening Rank']}</td>
+                    <td>${row['Closing Rank']}</td>
+                `;
+                resultsTable.appendChild(tr);
+            });
+        }
+
+        
+        const loginModal = document.getElementById("loginModal");
+        const signupModal = document.getElementById("signupModal");
+
+        document.getElementById("loginBtn").onclick = function() {
+            loginModal.style.display = "block";
+        }
+
+        document.getElementById("signupBtn").onclick = function() {
+            signupModal.style.display = "block";
+        }
+
+        document.getElementById("closeLogin").onclick = function() {
+            loginModal.style.display = "none";
+        }
+
+        document.getElementById("closeSignup").onclick = function() {
+            signupModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === loginModal) {
+                loginModal.style.display = "none";
+            }
+            if (event.target === signupModal) {
+                signupModal.style.display = "none";
+            }
+        }
+
+        
+        function handleLogin() {
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+            // Add login logic here (e.g., API call, validation, etc.)
+            alert(`Logged in as: ${email}`);
+            loginModal.style.display = "none";
+        }
+
+        // Handle signup
+        function handleSignup() {
+            const name = document.getElementById("signupName").value;
+            const email = document.getElementById("signupEmail").value;
+            const password = document.getElementById("signupPassword").value;
+            // Add signup logic here (e.g., API call, validation, etc.)
+            alert(`Signed up as: ${name}`);
+            signupModal.style.display = "none";
+        }
+
+        function searchCollege(event) {
+        if (event.key === 'Enter') {
+            const collegeName = document.getElementById('collegeSearch').value;
+            
+            window.location.href = `college-details.html?college=${encodeURIComponent(collegeName)}`;
+            }
+        }
+        const chatbotToggler = document.querySelector(".chatbot-toggler");
+const closeBtn = document.querySelector(".close-btn");
+const chatbox = document.querySelector(".chatbox");
+const chatInput = document.querySelector(".chat-input textarea");
+const sendChatBtn = document.querySelector(".chat-input span");
+
+let userMessage = null; 
+const inputInitHeight = chatInput.scrollHeight;
+
+
+const API_KEY = "AIzaSyDO85_RLYJbaTF3Hpeh_Qz3ze6xFthfP3g"; // Your API key here
+const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
+
+
+const iitKeywords = [
+  "IIT", "Indian Institute of Technology", "IIT Delhi", "IIT Bombay", "IIT Kanpur","IIT Guwahati", 
+  "IIT Bhilai","IIT Jammu","IIT Tirupati","IIT Dharwad","IIT Palakkad","IIT Kharagpur","IIT Goa",
+  "IIT Varanasi","IIT BHU","BHU","IIT Ropar","IIT ISM","IIT Roorkee","IIT Patna","IIT Gandhinagar",
+  "IIT Madras","IIT Chennai","IIT Jodhpur","IIT Hyderabad","IIT Indore","IIT Mandi","IIT Bhubneshwar",
+  "IIT ranking", "IIT admission","JEE", "IIT courses", "IIT faculty", "IIT research", "IIT fees"
+]; 
+
+
+const isIITRelated = (message) => {
+  return iitKeywords.some(keyword => message.toLowerCase().includes(keyword.toLowerCase()));
+};
+
+
+const createChatLi = (message, className) => {
+  const chatLi = document.createElement("li");
+  chatLi.classList.add("chat", `${className}`);
+  let chatContent = className === "outgoing" 
+    ? `<p></p>` 
+    : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+  chatLi.innerHTML = chatContent;
+  chatLi.querySelector("p").textContent = message;
+  return chatLi;
+};
+
+
+const generateResponse = async (chatElement) => {
+  const messageElement = chatElement.querySelector("p");
+
+  
+  if (!isIITRelated(userMessage)) {
+    messageElement.textContent = "I can only answer questions related to IITs. Please ask something about IITs.";
+    return;
+  }
+
+  
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ 
+      contents: [{ 
+        role: "user", 
+        parts: [{ text: userMessage }] 
+      }] 
+    }),
+  };
+
+ 
+  try {
+    const response = await fetch(API_URL, requestOptions);
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error.message);
+
+    messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1');
+  } catch (error) {
+    messageElement.classList.add("error");
+    messageElement.textContent = error.message;
+  } finally {
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+  }
+};
+
+
+const handleChat = () => {
+  userMessage = chatInput.value.trim(); 
+  if (!userMessage) return;
+
+  
+  chatInput.value = "";
+  chatInput.style.height = `${inputInitHeight}px`;
+
+  
+  chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+  chatbox.scrollTo(0, chatbox.scrollHeight);
+
+  
+  setTimeout(() => {
+    const incomingChatLi = createChatLi("Thinking...", "incoming");
+    chatbox.appendChild(incomingChatLi);
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+    generateResponse(incomingChatLi);
+  }, 600);
+};
+
+// Event listener for the chat input
+chatInput.addEventListener("input", () => {
+  chatInput.style.height = `${inputInitHeight}px`;
+  chatInput.style.height = `${chatInput.scrollHeight}px`;
+});
+
+// Event listener for the "Enter" key press to send the message
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+    e.preventDefault();
+    handleChat();
+  }
+});
+
+// Event listener for the send button click
+sendChatBtn.addEventListener("click", handleChat);
+
+// Event listeners for opening and closing the chatbot
+closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+
+    </script>
+
+</body>
+</html>

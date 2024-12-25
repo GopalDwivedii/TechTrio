@@ -1,0 +1,50 @@
+body {
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+    font-family: Arial, sans-serif;
+}
+
+#collegeComparison {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+thead {
+    background-color: #333;
+    color: #fff;
+}
+
+tbody tr {
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+
+tbody tr:hover {
+    background-color: #e1e1e1;
+}
+
+th, td {
+    border: 1px solid #ddd;
+}

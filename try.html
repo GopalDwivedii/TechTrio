@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Counseling & Recommendation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: #f0f2f5;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: sticky;
+            top: 0;
+            background: #004080;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #003366;
+            border-radius: 20px;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            font-size: 16px;
+            margin-right: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-right button {
+            margin-left: 15px;
+            padding: 10px 18px;
+            background-color: #e60073;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-right button:hover {
+            transform: translateY(-3px);
+            background-color: #cc0066;
+        }
+
+        /* Dropdown for Filter */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            z-index: 1;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .dropdown-content select {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .dropdown-content input {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .dropdown-content button {
+            padding: 10px 20px;
+            background-color: #004080;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #003366;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://source.unsplash.com/1600x900/?university,campus') no-repeat center center/cover;
+            padding: 100px 20px;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero button {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .hero button:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+
+        /* Popular Colleges Section */
+        .popular-colleges {
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            margin: 40px auto;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .popular-colleges h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .college-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .college-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            width: 30%;
+        }
+
+        .college-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .college-card img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .college-card h3 {
+            margin: 10px 0;
+            color: #004080;
+        }
+
+        .college-card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin: 15px 0;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-left">
+            <a href="#">Home</a>
+            <a href="#">Top Colleges</a>
+            <a href="#">Popular Courses</a>
+            <a href="#">Compare Colleges</a>
+            
+            <!-- Filter Dropdown -->
+            <div class="dropdown">
+                <a href="#">Filters</a>
+                <div class="dropdown-content">
+                    <input type="number" placeholder="JEE Advanced Rank">
+                    <select>
+                        <option value="">Caste Category</option>
+                        <option value="general">General</option>
+                        <option value="obc">OBC</option>
+                        <option value="sc">SC</option>
+                        <option value="st">ST</option>
+                        <option value="ews">EWS</option>
+                    </select>
+                    <select>
+                        <option value="">Preferred Course</option>
+                        <option value="cse">Computer Science Engineering</option>
+                        <option value="ee">Electrical Engineering</option>
+                        <option value="ce">Civil Engineering</option>
+                        <option value="me">Mechanical Engineering</option>
+                        <option value="mt">Metallurgy</option>
+                    </select>
+                    <button>Apply Filters</button>
+                </div>
+            </div>
+        </div>
+        <div class="nav-right">
+            <input type="text" class="search-bar" placeholder="Search for colleges...">
+            <button onclick="openModal('login')">Login</button>
+            <button onclick="openModal('signup')">Sign Up</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect College</h1>
+            <p>Your journey to success begins with the right education.</p>
+            <button>Get Started</button>
+        </div>
+    </section>
+
+    <!-- Popular Colleges Section -->
+    <section class="popular-colleges">
+        <h2>Popular Colleges</h2>
+        <div class="college-grid">
+            <div class="college-card">
+                <img src="https://source.unsplash.com/300x200/?college" alt="College 1">
+                <h3>College A</h3>
+                <p>Location: City A</p>
+                <p>Fees: $20,000/year</p>
+            </div>
+            <div class="college-card">
+                <img src="https://source.unsplash.com/300x200/?college" alt="College 2">
+                <h3>College B</h3>
+                <p>Location: City B</p>
+                <p>Fees: $25,000/year</p>
+            </div>
+            <div class="college-card">
+                <img src="https://source.unsplash.com/300x200/?college" alt="College 3">
+                <h3>College C</h3>
+                <p>Location: City C</p>
+                <p>Fees: $18,000/year</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <p>&copy; 2024 College Counseling. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook"></a>
+            <a href="#"><img src="https://img.icons8.com/color/48/000000/twitter.png" alt="Twitter"></a>
+            <a href="#"><img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn"></a>
+            <a href="#"><img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="Instagram"></a>
+        </div>
+    </footer>
+
+</body>
+</html>

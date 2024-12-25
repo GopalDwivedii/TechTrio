@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Details</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #176ddd;
+            background-color: #dee3ea;
+            padding: 20px;
+        }
+        h1 {
+            color: #004080;
+        }
+        .college-details {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .college-details p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="college-details" id="college-details">
+    <h1>College Details</h1>
+    <div id="details-content"></div>
+</div>
+
+<script>
+    // Get the college name from the URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const collegeName = params.get('college');
+
+    // Convert college name to lowercase for case-insensitive comparison
+    const lowerCaseCollegeName = collegeName ? collegeName.toLowerCase() : '';
+
+    // Mock data for college details (this should be fetched from your data source)
+    const collegeData = {
+        "iit bombay": {
+            location: "Mumbai, Maharashtra",
+            fees: "₹2,00,000 per annum",
+            placements: "100% placement rate, average package ₹20 LPA",
+            ranking: "1st in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitb.ac.in"
+        },
+        "iit delhi": {
+            location: "New Delhi, Delhi",
+            fees: "₹2,00,000 per annum",
+            placements: "95% placement rate, average package ₹18 LPA",
+            ranking: "2nd in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitd.ac.in"
+        },
+        "iit kanpur": {
+            location: "Kanpur, Uttar Pradesh",
+            fees: "₹2,00,000 per annum",
+            placements: "90% placement rate, average package ₹17 LPA",
+            ranking: "3rd in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitk.ac.in"
+        },
+        "iit kharagpur": {
+            location: "Kharagpur, West Bengal",
+            fees: "₹2,00,000 per annum",
+            placements: "92% placement rate, average package ₹16 LPA",
+            ranking: "4th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitkgp.ac.in"
+        },
+        "iit madras": {
+            location: "Chennai, Tamil Nadu",
+            fees: "₹2,00,000 per annum",
+            placements: "97% placement rate, average package ₹19 LPA",
+            ranking: "5th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitm.ac.in"
+        },
+        "iit roorkee": {
+            location: "Roorkee, Uttarakhand",
+            fees: "₹2,00,000 per annum",
+            placements: "88% placement rate, average package ₹15 LPA",
+            ranking: "6th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitr.ac.in"
+        },
+        "iit bhubaneswar": {
+            location: "Bhubaneswar, Odisha",
+            fees: "₹2,00,000 per annum",
+            placements: "85% placement rate, average package ₹14 LPA",
+            ranking: "7th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitbbs.ac.in"
+        },
+        "iit gandhinagar": {
+            location: "Gandhinagar, Gujarat",
+            fees: "₹2,00,000 per annum",
+            placements: "82% placement rate, average package ₹13 LPA",
+            ranking: "8th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitgn.ac.in"
+        },
+        "iit hyderabad": {
+            location: "Hyderabad, Telangana",
+            fees: "₹2,00,000 per annum",
+            placements: "89% placement rate, average package ₹15.5 LPA",
+            ranking: "9th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iith.ac.in"
+        },
+        "iit jodhpur": {
+            location: "Jodhpur, Rajasthan",
+            fees: "₹2,00,000 per annum",
+            placements: "80% placement rate, average package ₹12 LPA",
+            ranking: "10th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitj.ac.in"
+        },
+        "iit mandi": {
+            location: "Mandi, Himachal Pradesh",
+            fees: "₹2,00,000 per annum",
+            placements: "78% placement rate, average package ₹11 LPA",
+            ranking: "11th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitmandi.ac.in"
+        },
+        "iit patna": {
+            location: "Patna, Bihar",
+            fees: "₹2,00,000 per annum",
+            placements: "76% placement rate, average package ₹10 LPA",
+            ranking: "12th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitp.ac.in"
+        },
+        "iit dhanbad (ism)": {
+            location: "Dhanbad, Jharkhand",
+            fees: "₹2,00,000 per annum",
+            placements: "75% placement rate, average package ₹9 LPA",
+            ranking: "13th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitism.ac.in"
+        },
+        "iit bhilai": {
+            location: "Bhilai, Chhattisgarh",
+            fees: "₹2,00,000 per annum",
+            placements: "73% placement rate, average package ₹8 LPA",
+            ranking: "14th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitbhilai.ac.in"
+        },
+        "iit jammu": {
+            location: "Jammu, Jammu & Kashmir",
+            fees: "₹2,00,000 per annum",
+            placements: "72% placement rate, average package ₹8 LPA",
+            ranking: "15th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitjammu.ac.in"
+        },
+        "iit tirupati": {
+            location: "Tirupati, Andhra Pradesh",
+            fees: "₹2,00,000 per annum",
+            placements: "70% placement rate, average package ₹7.5 LPA",
+            ranking: "16th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iittp.ac.in"
+        },
+        "iit goa": {
+            location: "Goa",
+            fees: "₹2,00,000 per annum",
+            placements: "68% placement rate, average package ₹7 LPA",
+            ranking: "17th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitgoa.ac.in"
+        },
+        "iit bhopal": {
+            location: "Bhopal, Madhya Pradesh",
+            fees: "₹2,00,000 per annum",
+            placements: "65% placement rate, average package ₹6.5 LPA",
+            ranking: "18th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitbhopal.ac.in"
+        },
+        "iit manipal": {
+            location: "Manipal, Karnataka",
+            fees: "₹2,00,000 per annum",
+            placements: "60% placement rate, average package ₹6 LPA",
+            ranking: "19th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitmanipal.ac.in"
+        },
+        "iit chennai": {
+            location: "Chennai, Tamil Nadu",
+            fees: "₹2,00,000 per annum",
+            placements: "58% placement rate, average package ₹5.5 LPA",
+            ranking: "20th in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitchennai.ac.in"
+        },
+        "iit patiala": {
+            location: "Patiala, Punjab",
+            fees: "₹2,00,000 per annum",
+            placements: "55% placement rate, average package ₹5 LPA",
+            ranking: "21st in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitpatiala.ac.in"
+        },
+        "iit roorkee (ism)": {
+            location: "Roorkee, Uttarakhand",
+            fees: "₹2,00,000 per annum",
+            placements: "50% placement rate, average package ₹4.5 LPA",
+            ranking: "22nd in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitroorkee.ac.in"
+        },
+        "iit surathkal": {
+            location: "Surathkal, Karnataka",
+            fees: "₹2,00,000 per annum",
+            placements: "45% placement rate, average package ₹4 LPA",
+            ranking: "23rd in India",
+            courses: "B.Tech, M.Tech, PhD",
+            website: "https://www.iitsurathkal.ac.in"
+        }
+    };
+
+    // Display the college details based on the college name
+    const detailsContent = document.getElementById('details-content');
+    if (collegeData[lowerCaseCollegeName]) {
+        const details = collegeData[lowerCaseCollegeName];
+        detailsContent.innerHTML = `
+            <p><strong>Location:</strong> ${details.location}</p>
+            <p><strong>Fees:</strong> ${details.fees}</p>
+            <p><strong>Placements:</strong> ${details.placements}</p>
+            <p><strong>Ranking:</strong> ${details.ranking}</p>
+            <p><strong>Courses Available:</strong> ${details.courses}</p>
+            <p><strong>Website:</strong> <a href="${details.website}" target="_blank">${details.website}</a></p>
+        `;
+    } else {
+        detailsContent.innerHTML = `<p>No details found for ${collegeName}</p>`;
+    }
+</script>
+</body>
+</html>
