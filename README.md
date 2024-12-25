@@ -1,1 +1,1 @@
-# EduChoice.github.io
+# Career Counseling Website
