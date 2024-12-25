@@ -5,6 +5,28 @@
 ![image](https://github.com/user-attachments/assets/d070eda5-8acb-47b6-87ae-770176bfdd25)
 ![image](https://github.com/user-attachments/assets/9b5e5872-cd3b-4057-9362-9d5bea429ded)
 
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/GopalDwivedii/Career_Counseling.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd Career_Counseling
+   ```
+3. Open `text1.html` in your browser to access the website.
+
+Step-by-Step Guide to Generate a Google API Key via Al Studio for chatbot
+1. Visit Al Studio API Key Page:
+Open your browser and navigate to https://aistudio.google.com/app/apikey.
+2. Sign In with Google Account:
+Log in with the Google account you want to associate with the API key.
+3. Create a New API Key:
+• Once signed in, locate the "Create API Key" or "Generate Key" button on the page.
+• Click the button to initiate the key generation process.
+• Copy the key and paste it in as 'API_KEY' constant variable in test1.html
+
 ## Project Overview
 The **Dynamic College Counseling System** is an interactive website designed to assist students in their college selection process. This system allows users to filter colleges based on quotas and categories such as General, SC/ST, and others, according to their rank. The website is built using HTML, CSS, and JavaScript, offering a visually appealing and user-friendly experience.
 
@@ -49,18 +71,6 @@ The **Dynamic College Counseling System** is an interactive website designed to 
 3. **Chatbot Assistance:**
    - Click on the chatbot icon to initiate a conversation.
    - Ask queries related to colleges, ranks, and more.
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/GopalDwivedii/Career_Counseling.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd Career_Counseling
-   ```
-3. Open `text1.html` in your browser to access the website.
 
 
 ## Contributing
