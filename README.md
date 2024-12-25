@@ -1,4 +1,9 @@
 # Dynamic College Counseling System
+---
+
+### Screenshots
+![image](https://github.com/user-attachments/assets/d070eda5-8acb-47b6-87ae-770176bfdd25)
+![image](https://github.com/user-attachments/assets/9b5e5872-cd3b-4057-9362-9d5bea429ded)
 
 ## Project Overview
 The **Dynamic College Counseling System** is an interactive website designed to assist students in their college selection process. This system allows users to filter colleges based on quotas and categories such as General, SC/ST, and others, according to their rank. The website is built using HTML, CSS, and JavaScript, offering a visually appealing and user-friendly experience.
@@ -60,10 +65,3 @@ The **Dynamic College Counseling System** is an interactive website designed to 
 
 ## Contributing
 We welcome contributions to enhance the project! Feel free to submit pull requests or report issues.
-
----
-
-### Screenshots
-![image](https://github.com/user-attachments/assets/d070eda5-8acb-47b6-87ae-770176bfdd25)
-![image](https://github.com/user-attachments/assets/9b5e5872-cd3b-4057-9362-9d5bea429ded)
-
