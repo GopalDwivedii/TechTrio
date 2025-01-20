@@ -222,4 +222,78 @@ header h2 {
   .chatbot header span {
     display: block;
   }
+  /* Add these new styles to your existing style.css */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.auth-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-box h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.auth-box button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #724ae8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-box button:hover {
+    background-color: #5c3cc4;
+}
+
+.auth-box p {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.auth-box a {
+    color: #724ae8;
+    text-decoration: none;
+}
+
+#logout-btn {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5px 10px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 }
