@@ -1,3 +1,6 @@
+# Team name: Tech trio
+# Members: Anoshka ishi Gupta, Gopal Dwivedi, Om Prakash 
+# College name: Amity University Noida 
 # Dynamic College Counseling System
 ---
 
