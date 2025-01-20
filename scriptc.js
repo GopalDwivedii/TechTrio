@@ -1,3 +1,88 @@
+// Add this at the start of your script.js file
+// DOM Elements for authentication
+const authContainer = document.getElementById('auth-container');
+const chatbotContainer = document.getElementById('chatbot-container');
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+const showRegisterLink = document.getElementById('show-register');
+const showLoginLink = document.getElementById('show-login');
+const logoutBtn = document.getElementById('logout-btn');
+
+// Simple user storage
+const users = JSON.parse(localStorage.getItem('users')) || [];
+
+// Check if user is logged in
+function checkAuth() {
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+        authContainer.style.display = 'none';
+        chatbotContainer.style.display = 'block';
+    } else {
+        authContainer.style.display = 'flex';
+        chatbotContainer.style.display = 'none';
+    }
+}
+
+// Register Form Handler
+registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+
+    if (users.find(user => user.email === email)) {
+        alert('User already exists!');
+        return;
+    }
+
+    users.push({ name, email, password });
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    document.getElementById('register-box').style.display = 'none';
+    document.getElementById('login-form').parentElement.style.display = 'block';
+    alert('Registration successful! Please login.');
+});
+
+// Login Form Handler
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        checkAuth();
+    } else {
+        alert('Invalid credentials!');
+    }
+});
+
+// Logout Handler
+logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('currentUser');
+    checkAuth();
+});
+
+// Toggle between login and register forms
+showRegisterLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('register-box').style.display = 'block';
+    document.getElementById('login-form').parentElement.style.display = 'none';
+});
+
+showLoginLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('register-box').style.display = 'none';
+    document.getElementById('login-form').parentElement.style.display = 'block';
+});
+
+// Check authentication status when page loads
+checkAuth();
+
+// Your existing chatbot code continues here...
+
 const chatbotToggler = document.querySelector(".chatbot-toggler");
 const closeBtn = document.querySelector(".close-btn");
 const chatbox = document.querySelector(".chatbox");
