@@ -35,7 +35,64 @@
       <span id="send-btn" class="material-symbols-rounded">send</span>
     </div>
   </div>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <!-- Your existing head content remains the same -->
+</head>
+<body>
+    <!-- Add this new auth container at the start of body -->
+    <div id="auth-container" class="auth-container">
+        <div class="auth-box">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+        </div>
 
+        <div class="auth-box" id="register-box" style="display: none;">
+            <h2>Register</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <input type="text" id="register-name" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="register-email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="register-password" placeholder="Password" required>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Wrap your existing chatbot in a container div and hide it initially -->
+    <div id="chatbot-container" style="display: none;">
+        <!-- Your existing chatbot button and content -->
+        <button class="chatbot-toggler">
+            <!-- ... existing content ... -->
+        </button>
+        <div class="chatbot">
+            <header>
+                <h2>Chatbot</h2>
+                <!-- Add logout button in header -->
+                <button id="logout-btn">Logout</button>
+                <span class="close-btn material-symbols-outlined">close</span>
+            </header>
+            <!-- ... rest of your existing chatbot content ... -->
+        </div>
+    </div>
+</body>
+</html>
 </body>
 
 </html>
