@@ -1,6 +1,6 @@
 # Team name: Tech trio
 # link to github pages : https://gopaldwivedii.github.io/TechTrio/index.html
-# Members: Anoshka ishi Gupta, Gopal Dwivedi, Om Prakash 
+# Members: Gopal Dwivedi, Om Prakash 
 # College name: Amity University Noida 
 # Dynamic College Counseling System
 ---
