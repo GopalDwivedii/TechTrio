@@ -1,5 +1,5 @@
 # Team name: Tech trio
-# link to github pages : https://gopaldwivedii.github.io/TechTrio/index.html
+# link to my website : https://tech-trio-five.vercel.app/
 # Members: Gopal Dwivedi, Om Prakash 
 # College name: Amity University Noida 
 # Dynamic College Counseling System
